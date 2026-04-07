@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>MenuMaster — Portal Digital para Restaurantes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MenuMaster — Consulta nuestro menú, haz tu reserva o pedido fácilmente. Sabor casero colombiano en tu mesa.">
+  <meta property="og:title" content="MenuMaster — Portal Digital para Restaurantes">
+  <meta property="og:description" content="Conectamos sabores con personas.">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- HEADER cargado dinámicamente desde header.html -->
+  <div id="header-container"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1>Donde el sabor casero encuentra tu mesa</h1>
+        <div class="hero-subtitle">Menú fresco · Reservas fáciles · Pedidos directos</div>
+      </div>
+      <div class="hero-ui">
+        <img src="img/MASTER-MENU.png" alt="MenuMaster — Comida casera colombiana" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+     <!-- UBICACIÓN / MAPA -->
+    <section class="ubicacion">
+      <div class="container">
+
+            <h2>Cómo llegar</h2>
+            <p class="direccion">
+              Calle 140 #12-34, Cedritos, Bogotá
+            </p>
+
+          <div class="mapa">
+             <iframe 
+                src="https://www.google.com/maps?q=Cedritos+Bogota&output=embed"
+                loading="lazy">
+             </iframe>
+          </div>
+
+          <div class="btn-mapa">
+             <a href="https://maps.google.com/?q=Cedritos+Bogota" target="_blank">
+             Cómo llegar
+              </a>
+          </div>
+
+        </div>
+    </section>
+
+  <!-- VALORES / FILOSOFÍA DEL RESTAURANTE -->
+  <section id="bases-negocio">
+    <div class="container">
+      <h2>Nuestra Filosofía</h2>
+      <div class="bases-list">
+        <div class="base-item">
+          <p>"La buena comida es la base de la felicidad genuina."</p>
+          <span>— Auguste Escoffier</span>
+        </div>
+        <div class="base-item">
+          <p>"Cocinar es un acto de amor que alimenta el alma y el cuerpo."</p>
+          <span>— Julia Child</span>
+        </div>
+        <div class="base-item">
+          <p>"Los sabores de la infancia son el hogar que siempre llevamos."</p>
+          <span>— Cocina colombiana</span>
+        </div>
+        <div class="base-item">
+          <p>"Un plato bien hecho no necesita adornos — habla solo."</p>
+          <span>— Tradición casera</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS / EXPERIENCIA -->
+  <section id="forma-de-trabajar">
+    <div class="container">
+      <h2>¿Qué ofrecemos?</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-body">
+            <h3>🍲 Menú del día</h3>
+            <p>Cada día preparamos platos frescos con ingredientes de temporada. Consulta nuestra carta y elige lo que más te apetezca — siempre con sazón casera.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h3>📅 Reserva tu mesa</h3>
+            <p>Planea tu visita con anticipación. Reserva en minutos directamente desde el portal y llega a disfrutar sin esperas ni contratiempos.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <h3>🛵 Pedidos a domicilio</h3>
+            <p>¿Prefieres comer en casa? Haz tu pedido en línea y lo llevamos hasta tu puerta. También disponible para recoger en el restaurante.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA — RESERVAR O PEDIR -->
+  <div class="cta" id="publicar">
+    <h2>¿Listo para hacer tu pedido o reserva?</h2>
+    <a href="reservas.html">Reservar o pedir ahora</a>
+  </div>
+
+  <!-- FOOTER cargado dinámicamente desde footer.html -->
+  <div id="footer-container"></div>
+
+  <script src="js/header-loader.js"></script>
+  <script src="js/footer-loader.js"></script>
+  <script src="js/menu-mobile.js"></script>
+</body>
+</html>

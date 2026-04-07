@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Opiniones - MenuMaster</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Deja tu opinión sobre MenuMaster y recomiéndanos a tus amigos y familia.">
+  <meta property="og:title" content="Opiniones - MenuMaster">
+  <meta property="og:description" content="Tu opinión nos ayuda a mejorar. ¡Comparte MenuMaster con quienes quieres!">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    .opiniones-page {
+      min-height: calc(100vh - var(--header-height));
+      background: #fafaf8;
+      padding: 60px 20px 80px;
+    }
+
+    /* ── Hero ── */
+    .opiniones-hero {
+      max-width: 700px;
+      margin: 0 auto 56px;
+      text-align: center;
+    }
+
+    .opiniones-eyebrow {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 18px;
+      padding: 6px 16px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      background: #fff;
+    }
+
+    .opiniones-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      color: #2C1A0E;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .opiniones-hero p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Botón compartir WhatsApp ── */
+    .compartir-section {
+      max-width: 720px;
+      margin: 0 auto 48px;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 40px 48px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+
+    .compartir-section h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #2C1A0E;
+      margin-bottom: 12px;
+    }
+
+    .compartir-section p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.97rem;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .btn-compartir-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+    }
+
+    .btn-compartir-wa:hover {
+      background: #1fb855;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(37,211,102,0.4);
+    }
+
+    .btn-compartir-wa .wa-icon { font-size: 1.4rem; }
+
+    .compartir-nota {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 16px;
+    }
+
+    /* ── Formulario opinión ── */
+    .form-card {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 48px 52px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+    }
+
+    .form-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #2C1A0E;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-row.full { grid-template-columns: 1fr; }
+
+    .form-field { display: flex; flex-direction: column; gap: 7px; }
+
+    .form-field label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #444;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.97rem;
+      color: #111;
+      background: #fafaf8;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 13px 16px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      width: 100%;
+    }
+
+    .form-field textarea {
+      resize: vertical;
+      min-height: 130px;
+      line-height: 1.6;
+    }
+
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: #C8440A;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(200,68,10,0.07);
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: #bbb; font-weight: 300; }
+
+    /* ── Estrellas ── */
+    .stars-group {
+      display: flex;
+      gap: 8px;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .star { color: #ddd; transition: color 0.15s ease; user-select: none; }
+    .star.selected,
+    .star.hover { color: #C8440A; }
+
+    /* ── Tipo de comentario ── */
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-option { flex: 1; min-width: 90px; }
+    .radio-option input[type="radio"] { display: none; }
+
+    .radio-option label {
+      display: block;
+      text-align: center;
+      padding: 12px 10px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #555;
+      background: #fafaf8;
+      transition: all 0.2s ease;
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+      background: #C8440A;
+      color: #fff;
+      border-color: #C8440A;
+      font-weight: 500;
+    }
+
+    .radio-option label:hover { border-color: #C8440A; background: #FFF3EA; }
+
+    .form-section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .form-divider { border: none; border-top: 1px solid #f0f0f0; margin: 28px 0; }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: #C8440A;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 32px;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-submit:hover {
+      background: #a03508;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(200,68,10,0.3);
+    }
+
+    .btn-submit:disabled { background: #999; cursor: not-allowed; transform: none; }
+
+    .btn-arrow { transition: transform 0.2s ease; }
+    .btn-submit:hover .btn-arrow { transform: translateX(4px); }
+
+    /* ── Confirmación ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 20px;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .form-success.visible { display: block; }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: #C8440A;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.6rem;
+      color: #fff;
+    }
+
+    .form-success h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #2C1A0E;
+      margin-bottom: 12px;
+    }
+
+    .form-success p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.97rem;
+      color: #666;
+      line-height: 1.7;
+      max-width: 400px;
+      margin: 0 auto 28px;
+    }
+
+    .btn-volver-inicio {
+      display: inline-block;
+      padding: 12px 28px;
+      background: #C8440A;
+      color: #fff;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    .btn-volver-inicio:hover { background: #a03508; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-disclaimer {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      color: #aaa;
+      text-align: center;
+      margin-top: 16px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .opiniones-page { padding: 40px 16px 60px; }
+      .form-card { padding: 32px 24px; }
+      .compartir-section { padding: 32px 24px; }
+      .form-row { grid-template-columns: 1fr; gap: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      .form-card { padding: 24px 16px; border-radius: 14px; }
+      .compartir-section { padding: 24px 16px; border-radius: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header-container"></div>
+
+  <div class="opiniones-page">
+
+    <!-- Hero -->
+    <div class="opiniones-hero">
+      <span class="opiniones-eyebrow">MenuMaster · Tu opinión importa</span>
+      <h1>¿Cómo te fue<br>con nosotros?</h1>
+      <p>Tu opinión nos ayuda a mejorar cada día. Cuéntanos tu experiencia y si te gustó, ¡recomiéndanos a quien quieras!</p>
+    </div>
+
+    <!-- COMPARTIR POR WHATSAPP -->
+    <div class="compartir-section">
+      <h2>🍽️ ¿Te gustó? ¡Compártelo!</h2>
+      <p>Recomienda MenuMaster a un familiar o amigo. Con un solo tap se abre WhatsApp con el link listo para enviar.</p>
+      <a id="btnCompartirWA" class="btn-compartir-wa" href="#" target="_blank">
+        <span class="wa-icon">📲</span>
+        Compartir con un amigo / familiar
+      </a>
+      <p class="compartir-nota">Se abre WhatsApp con el link del restaurante listo para enviar.</p>
+    </div>
+
+    <!-- FORMULARIO OPINIÓN -->
+    <div class="form-card">
+
+      <div id="form-wrapper">
+        <div class="form-card-title">Déjanos tu opinión</div>
+
+        <form id="opinion-form" onsubmit="handleSubmit(event)">
+
+          <!-- Campo oculto sistema -->
+          <input type="hidden" name="entry.500997768" value="Si">
+
+          <!-- Nombre + Teléfono -->
+          <div class="form-row">
+            <div class="form-field">
+              <label for="nombre">Tu nombre</label>
+              <input type="text" id="nombre" name="entry.1290601027" placeholder="¿Cómo te llamás?" required>
+            </div>
+            <div class="form-field">
+              <label for="telefono">Teléfono (opcional)</label>
+              <input type="tel" id="telefono" name="entry.1595164733" placeholder="300 000 0000">
+            </div>
+          </div>
+
+          <hr class="form-divider">
+
+          <!-- Calificación con estrellas -->
+          <p class="form-section-label">¿Cómo calificarías tu experiencia?</p>
+          <div class="stars-group" id="starsGroup" style="margin-bottom: 24px;">
+            <span class="star" data-val="1">★</span>
+            <span class="star" data-val="2">★</span>
+            <span class="star" data-val="3">★</span>
+            <span class="star" data-val="4">★</span>
+            <span class="star" data-val="5">★</span>
+          </div>
+          <input type="hidden" id="calificacion" name="entry.1330743196" value="">
+
+          <!-- Tipo de comentario -->
+          <p class="form-section-label">Tipo de comentario</p>
+          <div class="form-row full" style="margin-bottom: 24px;">
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="tipo-felicitacion" name="entry.71353046" value="Felicitación" required>
+                <label for="tipo-felicitacion">👏 Felicitación</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="tipo-sugerencia" name="entry.71353046" value="Sugerencia">
+                <label for="tipo-sugerencia">💡 Sugerencia</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="tipo-reclamo" name="entry.71353046" value="Reclamo">
+                <label for="tipo-reclamo">⚠️ Reclamo</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comentario -->
+          <div class="form-row full">
+            <div class="form-field">
+              <label for="comentario">Tu comentario</label>
+              <textarea
+                id="comentario"
+                name="entry.1444965401"
+                placeholder="Cuéntanos tu experiencia: el sabor, el servicio, el ambiente, lo que más te gustó o lo que podemos mejorar..."
+                required></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">
+            <span>Enviar opinión</span>
+            <span class="btn-arrow">→</span>
+          </button>
+
+          <p class="form-disclaimer">Tu opinión puede ser publicada en nuestras redes sociales. No compartimos tus datos personales.</p>
+
+          <button type="submit" id="submit-btn">Enviar opinión</button>
+
+        </form>
+      </div>
+
+      <!-- Confirmación -->
+      <div class="form-success" id="form-success">
+        <div class="success-icon">✓</div>
+        <h2>¡Gracias por tu opinión!</h2>
+        <p>Tu comentario es muy valioso para nosotros. Seguimos cocinando con amor para ti.</p>
+        <a href="index.html" class="btn-volver-inicio">Volver al inicio</a>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="js/header-loader.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer-loader.js"></script>
+  <script src="js/menu-mobile.js"></script>
+
+  <script>
+    // ===== BOTÓN COMPARTIR WHATSAPP =====
+    // ⚠️ Cambia esta URL por la URL real de tu portal MenuMaster
+    const URL_RESTAURANTE = "https://menumaster.com";
+    const MENSAJE_WA = `¡Mira este restaurante! 🍽️ Tienen un menú delicioso y puedes hacer tu reserva o pedido directo en línea: ${URL_RESTAURANTE}`;
+
+    document.getElementById("btnCompartirWA").href =
+      `https://wa.me/?text=${encodeURIComponent(MENSAJE_WA)}`;
+
+    // ===== ESTRELLAS =====
+    let calificacionSeleccionada = 0;
+    const stars = document.querySelectorAll(".star");
+
+    stars.forEach(star => {
+      star.addEventListener("mouseover", function () {
+        const val = parseInt(this.dataset.val);
+        stars.forEach(s => {
+          s.classList.toggle("hover", parseInt(s.dataset.val) <= val);
+        });
+      });
+
+      star.addEventListener("mouseout", function () {
+        stars.forEach(s => s.classList.remove("hover"));
+      });
+
+      star.addEventListener("click", function () {
+        calificacionSeleccionada = parseInt(this.dataset.val);
+        document.getElementById("calificacion").value = calificacionSeleccionada;
+        stars.forEach(s => {
+          s.classList.toggle("selected", parseInt(s.dataset.val) <= calificacionSeleccionada);
+        });
+      });
+    });
+
+    // ===== ENVÍO FORMULARIO =====
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      if (!calificacionSeleccionada) {
+        alert("Por favor selecciona una calificación con las estrellas ⭐");
+        return;
+      }
+
+      const btn = document.getElementById("submit-btn");
+      btn.disabled = true;
+      btn.innerHTML = '<span>Enviando...</span>';
+
+      const form = document.getElementById("opinion-form");
+      const data = new FormData(form);
+      const params = new URLSearchParams(data);
+
+      // ⚠️ Actualizar con el endpoint real del Google Form de MenuMaster
+      fetch("https://docs.google.com/forms/u/0/d/e/1FAIpQLSeYCBDAx-51nqP6v_AUbNlyf-2wiZEydiw4ql8EEVCb9sLGAg/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: params
+      }).then(() => {
+        document.getElementById("form-wrapper").style.display = "none";
+        document.getElementById("form-success").classList.add("visible");
+      }).catch(() => {
+        document.getElementById("form-wrapper").style.display = "none";
+        document.getElementById("form-success").classList.add("visible");
+      });
+    }
+  </script>
+
+  <script src="js/opiniones.js"></script>
+
+</body>
+</html>

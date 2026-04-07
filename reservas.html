@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reservas / Pedidos - MenuMaster</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Confirma tu pedido o reserva tu mesa en MenuMaster.">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Página ── */
+    .notificaciones-page {
+      min-height: calc(100vh - var(--header-height));
+      background: #fafaf8;
+      padding: 60px 20px 80px;
+    }
+
+    /* ── Hero ── */
+    .notif-hero {
+      max-width: 700px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+    .notif-eyebrow {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 18px;
+      padding: 6px 16px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      background: #fff;
+    }
+    .notif-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 600;
+      color: #2C1A0E;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .notif-hero p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: #666;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Pasos ── */
+    .pasos-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 860px;
+      margin: 0 auto 48px;
+    }
+    .paso-item {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .paso-item:hover {
+      box-shadow: 0 6px 20px rgba(200,68,10,0.1);
+      transform: translateY(-2px);
+    }
+    .paso-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #C8440A;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .paso-txt {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    /* ── Carrito resumen ── */
+    .carrito-resumen {
+      max-width: 720px;
+      margin: 0 auto 28px;
+      background: #fff;
+      border: 1.5px solid #e0d5c8;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(200,68,10,0.06);
+    }
+    .carrito-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: #FFF3EA;
+      border-bottom: 1px solid #e0d5c8;
+    }
+    .carrito-header-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2C1A0E;
+    }
+    .carrito-btn-seguir {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: #C8440A;
+      font-weight: 500;
+      border: 1px solid #C8440A;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .carrito-btn-seguir:hover { background: #C8440A; color: #fff; }
+
+    .carrito-lista { padding: 0 24px; }
+
+    .carrito-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid #f5f0ea;
+      gap: 10px;
+    }
+    .carrito-item:last-child { border-bottom: none; }
+
+    .carrito-item-nombre {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      color: #2C1A0E;
+      flex: 1;
+    }
+    .carrito-controles {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .carrito-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid #e0e0e0;
+      background: #fafaf8;
+      color: #555;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1;
+    }
+    .carrito-btn:hover { border-color: #C8440A; color: #C8440A; }
+    .carrito-btn.del:hover { background: #C8440A; border-color: #C8440A; color: #fff; }
+
+    .carrito-cantidad {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #2C1A0E;
+      min-width: 20px;
+      text-align: center;
+    }
+    .carrito-precio {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      font-weight: 500;
+      color: #C8440A;
+      min-width: 90px;
+      text-align: right;
+    }
+
+    .carrito-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      background: #fafaf8;
+      border-top: 1.5px solid #e0d5c8;
+    }
+    .carrito-total-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .carrito-total-valor {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #2C1A0E;
+    }
+    .carrito-vacio {
+      padding: 28px 24px;
+      text-align: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem;
+      color: #999;
+    }
+    .carrito-vacio a { color: #C8440A; font-weight: 500; text-decoration: none; }
+    .carrito-vacio a:hover { text-decoration: underline; }
+
+    /* ── Form card ── */
+    .form-card {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 20px;
+      padding: 44px 48px;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.06);
+    }
+    .form-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #2C1A0E;
+      margin-bottom: 28px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .form-row.full { grid-template-columns: 1fr; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-field label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #444;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .form-field input,
+    .form-field textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #111;
+      background: #fafaf8;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 12px 15px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      width: 100%;
+    }
+    .form-field textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: #C8440A;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(200,68,10,0.07);
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: #bbb; font-weight: 300; }
+
+    .radio-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .radio-option { flex: 1; min-width: 90px; }
+    .radio-option input[type="radio"] { display: none; }
+    .radio-option label {
+      display: block;
+      text-align: center;
+      padding: 11px 10px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      color: #555;
+      background: #fafaf8;
+      transition: all 0.2s;
+    }
+    .radio-option input[type="radio"]:checked + label {
+      background: #C8440A; color: #fff; border-color: #C8440A; font-weight: 500;
+    }
+    .radio-option label:hover { border-color: #C8440A; background: #FFF3EA; }
+
+    .form-divider { border: none; border-top: 1px solid #f0f0f0; margin: 24px 0; }
+    .form-section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: #999;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    /* ── Botón confirmar ── */
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: #C8440A;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 28px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-submit:hover {
+      background: #a03508;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(200,68,10,0.3);
+    }
+    .btn-submit:disabled { background: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-arrow { transition: transform 0.2s; }
+    .btn-submit:hover .btn-arrow { transform: translateX(4px); }
+
+    /* ── Canales de salida ── */
+    .canales-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+    .canal-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f5f5f5;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    /* ── Estado de envío ── */
+    .envio-estado {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+    }
+    .envio-estado.enviando {
+      display: flex;
+      background: #FFF3EA;
+      color: #C8440A;
+    }
+    .envio-estado.error {
+      display: flex;
+      background: #fff0f0;
+      color: #c0392b;
+    }
+    .mini-spinner {
+      width: 16px; height: 16px;
+      border: 2px solid #e0c8b8;
+      border-top-color: #C8440A;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Éxito ── */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 48px 20px;
+      animation: fadeInUp 0.5s ease;
+    }
+    .form-success.visible { display: block; }
+    .success-icon {
+      width: 64px; height: 64px;
+      background: #C8440A;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.6rem;
+      color: #fff;
+    }
+    .form-success h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #2C1A0E;
+      margin-bottom: 12px;
+    }
+    .form-success p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.7;
+      max-width: 400px;
+      margin: 0 auto 24px;
+    }
+    .form-success-acciones {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-volver-menu {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #C8440A;
+      color: #fff;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-volver-menu:hover { background: #a03508; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .notificaciones-page { padding: 40px 16px 60px; }
+      .pasos-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-card { padding: 28px 20px; }
+      .form-row { grid-template-columns: 1fr; gap: 14px; }
+      .carrito-header { padding: 13px 16px; }
+      .carrito-lista { padding: 0 16px; }
+      .carrito-total { padding: 13px 16px; }
+    }
+    @media (max-width: 480px) {
+      .pasos-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .form-card { padding: 20px 14px; border-radius: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="header-container"></div>
+
+  <div class="notificaciones-page">
+
+    <!-- HERO -->
+    <div class="notif-hero">
+      <span class="notif-eyebrow">MenuMaster · Reservas y Pedidos</span>
+      <h1>Confirma tu<br>pedido</h1>
+      <p>Revisa lo que elegiste, completa tus datos y enviamos tu pedido al restaurante al instante.</p>
+    </div>
+
+    <!-- PASOS -->
+    <div class="pasos-grid">
+      <div class="paso-item">
+        <div class="paso-num">01</div>
+        <div class="paso-txt">Elegiste tus platos en el menú</div>
+      </div>
+      <div class="paso-item">
+        <div class="paso-num">02</div>
+        <div class="paso-txt">Revisa tu pedido aquí abajo</div>
+      </div>
+      <div class="paso-item">
+        <div class="paso-num">03</div>
+        <div class="paso-txt">Deja tus datos y tipo de servicio</div>
+      </div>
+      <div class="paso-item">
+        <div class="paso-num">04</div>
+        <div class="paso-txt">Te confirman en minutos</div>
+      </div>
+    </div>
+
+    <!-- RESUMEN CARRITO -->
+    <div class="carrito-resumen">
+      <div class="carrito-header">
+        <span class="carrito-header-titulo">🛒 Tu pedido</span>
+        <a href="menu.html" class="carrito-btn-seguir">← Seguir eligiendo</a>
+      </div>
+      <div class="carrito-lista" id="carritoLista"></div>
+      <div class="carrito-total" id="carritoTotal" style="display:none;">
+        <span class="carrito-total-label">Total estimado</span>
+        <span class="carrito-total-valor" id="carritoTotalValor"></span>
+      </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="form-card">
+
+      <div id="form-wrapper">
+        <div class="form-card-title">Tus datos de contacto</div>
+
+        <form id="pedido-form">
+
+          <div class="form-row">
+            <div class="form-field">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" placeholder="Tu nombre completo" required>
+            </div>
+            <div class="form-field">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" placeholder="300 000 0000" required>
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-field">
+              <label for="email">Correo electrónico</label>
+              <input type="email" id="email" placeholder="correo@ejemplo.com">
+            </div>
+          </div>
+
+          <hr class="form-divider">
+
+          <p class="form-section-label">Tipo de servicio</p>
+          <div class="form-row full" style="margin-bottom:20px;">
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="serv-mesa" name="tipo_servicio"
+                       value="Reserva mesa" required>
+                <label for="serv-mesa">🍽️ Reserva mesa</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="serv-domicilio" name="tipo_servicio"
+                       value="Domicilio">
+                <label for="serv-domicilio">🛵 Domicilio</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="serv-pickup" name="tipo_servicio"
+                       value="Pickup">
+                <label for="serv-pickup">🏃 Pickup</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row full">
+            <div class="form-field">
+              <label for="notas">Notas adicionales (opcional)</label>
+              <textarea id="notas"
+                placeholder="Alergias, número de personas, fecha/hora, dirección de entrega..."></textarea>
+            </div>
+          </div>
+
+          <button type="button" class="btn-submit" id="btn-confirmar"
+                  onclick="confirmarPedido()">
+            <span>Confirmar pedido</span>
+            <span class="btn-arrow">→</span>
+          </button>
+
+          <!-- Indicador de estado -->
+          <div class="envio-estado enviando" id="estadoEnviando">
+            <div class="mini-spinner"></div>
+            <span>Enviando tu pedido…</span>
+          </div>
+          <div class="envio-estado error" id="estadoError">
+            ⚠️ <span id="estadoErrorMsg">Error al enviar. Intenta de nuevo.</span>
+          </div>
+
+          <div class="canales-info">
+            Tu pedido llegará vía
+            <span class="canal-chip">📊 Google Sheet</span>
+            +
+            <span class="canal-chip">💬 WhatsApp</span>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- ÉXITO -->
+      <div class="form-success" id="form-success">
+        <div class="success-icon">✓</div>
+        <h2>¡Pedido enviado!</h2>
+        <p>Tu pedido llegó al restaurante por WhatsApp y quedó registrado. Te confirman en minutos.</p>
+        <div class="form-success-acciones">
+          <a href="menu.html" class="btn-volver-menu">Ver el menú completo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="js/header-loader.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer-loader.js"></script>
+  <script src="js/menu-mobile.js"></script>
+  <script src="js/config.js"></script>
+
+  <script>
+    // ============================================================
+    // CONFIGURACIÓN
+    // ============================================================
+    var WHATSAPP_NUMBER = "573058134079";
+    // ⚠️ Pegar aquí la URL del Apps Script una vez implementado:
+    var PEDIDOS_ENDPOINT = MENUMASTER_CONFIG.PEDIDOS_ENDPOINT || "";
+
+    // ============================================================
+    // CARRITO
+    // ============================================================
+    function getCarrito() {
+      try { return JSON.parse(localStorage.getItem("mm_carrito")) || []; }
+      catch { return []; }
+    }
+
+    function guardarCarrito(c) {
+      localStorage.setItem("mm_carrito", JSON.stringify(c));
+    }
+
+    function fmtPrecio(precio) {
+      var n = Number(precio);
+      return isNaN(n) ? "Consultar" : "$ " + n.toLocaleString("es-CO");
+    }
+
+    function renderCarrito() {
+      var carrito  = getCarrito();
+      var lista    = document.getElementById("carritoLista");
+      var totalBox = document.getElementById("carritoTotal");
+      var totalVal = document.getElementById("carritoTotalValor");
+
+      lista.innerHTML = "";
+
+      if (carrito.length === 0) {
+        lista.innerHTML = '<div class="carrito-vacio">No has agregado platos todavía. <a href="menu.html">Ver el menú →</a></div>';
+        totalBox.style.display = "none";
+        return;
+      }
+
+      var total = 0;
+
+      carrito.forEach(function(item, idx) {
+        var subtotal = (item.precio || 0) * (item.cantidad || 1);
+        total += subtotal;
+
+        var div = document.createElement("div");
+        div.className = "carrito-item";
+        div.innerHTML =
+          '<span class="carrito-item-nombre">' + item.nombre + '</span>' +
+          '<div class="carrito-controles">' +
+            '<button class="carrito-btn" onclick="cambiarCantidad(' + idx + ',-1)" aria-label="Quitar uno">−</button>' +
+            '<span class="carrito-cantidad">' + (item.cantidad || 1) + '</span>' +
+            '<button class="carrito-btn" onclick="cambiarCantidad(' + idx + ',1)" aria-label="Agregar uno">+</button>' +
+            '<button class="carrito-btn del" onclick="eliminarItem(' + idx + ')" aria-label="Eliminar">✕</button>' +
+          '</div>' +
+          '<span class="carrito-precio">' + fmtPrecio(subtotal) + '</span>';
+
+        lista.appendChild(div);
+      });
+
+      totalBox.style.display = "flex";
+      totalVal.textContent = fmtPrecio(total);
+    }
+
+    function cambiarCantidad(idx, delta) {
+      var c = getCarrito();
+      if (!c[idx]) return;
+      c[idx].cantidad = (c[idx].cantidad || 1) + delta;
+      if (c[idx].cantidad <= 0) c.splice(idx, 1);
+      guardarCarrito(c);
+      renderCarrito();
+    }
+
+    function eliminarItem(idx) {
+      var c = getCarrito();
+      c.splice(idx, 1);
+      guardarCarrito(c);
+      renderCarrito();
+    }
+
+    // ============================================================
+    // ARMAR TEXTO DEL PEDIDO
+    // ============================================================
+    function armarTextoPedido(datos) {
+      var lineas = ["🍽️ *NUEVO PEDIDO — MenuMaster*", ""];
+      lineas.push("👤 *Cliente:* " + datos.nombre);
+      lineas.push("📱 *Teléfono:* " + datos.telefono);
+      if (datos.email) lineas.push("📧 *Email:* " + datos.email);
+      lineas.push("🚀 *Tipo:* " + datos.tipo_servicio);
+      lineas.push("");
+      lineas.push("📋 *Platos:*");
+      datos.carrito.forEach(function(item) {
+        var sub = (item.precio || 0) * (item.cantidad || 1);
+        lineas.push("  • " + item.nombre + " x" + (item.cantidad || 1) + " = " + fmtPrecio(sub));
+      });
+      lineas.push("");
+      lineas.push("💰 *Total estimado:* " + fmtPrecio(datos.total));
+      if (datos.notas) {
+        lineas.push("");
+        lineas.push("📝 *Notas:* " + datos.notas);
+      }
+      return lineas.join("\n");
+    }
+
+    // ============================================================
+    // CONFIRMAR PEDIDO — OPCIÓN C
+    // ============================================================
+    function confirmarPedido() {
+      // Validar formulario
+      var nombre       = document.getElementById("nombre").value.trim();
+      var telefono     = document.getElementById("telefono").value.trim();
+      var email        = document.getElementById("email").value.trim();
+      var tipo         = document.querySelector('input[name="tipo_servicio"]:checked');
+      var notas        = document.getElementById("notas").value.trim();
+
+      if (!nombre) { alert("Por favor ingresa tu nombre."); return; }
+      if (!telefono) { alert("Por favor ingresa tu teléfono."); return; }
+      if (!tipo) { alert("Por favor selecciona el tipo de servicio."); return; }
+
+      var carrito = getCarrito();
+      if (carrito.length === 0) {
+        alert("Tu pedido está vacío. Agrega platos desde el menú.");
+        return;
+      }
+
+      // Calcular total
+      var total = carrito.reduce(function(acc, p) {
+        return acc + (p.precio || 0) * (p.cantidad || 1);
+      }, 0);
+
+      // Armar resumen texto para Sheet y WhatsApp
+      var resumenPlatos = carrito.map(function(p) {
+        return p.nombre + " x" + (p.cantidad || 1) + " (" + fmtPrecio((p.precio||0)*(p.cantidad||1)) + ")";
+      }).join(" | ");
+
+      var datos = {
+        nombre:        nombre,
+        telefono:      telefono,
+        email:         email,
+        tipo_servicio: tipo.value,
+        carrito:       carrito,
+        platos:        resumenPlatos,
+        total:         fmtPrecio(total),
+        notas:         notas
+      };
+
+      // UI — estado enviando
+      document.getElementById("btn-confirmar").disabled = true;
+      document.getElementById("estadoEnviando").style.display = "flex";
+      document.getElementById("estadoError").style.display = "none";
+
+      // ── CANAL 1: Google Sheet vía Apps Script ──
+      var promesaSheet;
+      if (PEDIDOS_ENDPOINT) {
+        promesaSheet = fetch(PEDIDOS_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre:        datos.nombre,
+            telefono:      datos.telefono,
+            email:         datos.email,
+            tipo_servicio: datos.tipo_servicio,
+            platos:        datos.platos,
+            total:         datos.total,
+            notas:         datos.notas
+          })
+        }).catch(function() { return { ok: false }; });
+      } else {
+        // Si aún no hay endpoint, resuelve inmediatamente
+        promesaSheet = Promise.resolve({ ok: true });
+      }
+
+      // ── CANAL 2: WhatsApp ──
+      var mensajeWA  = armarTextoPedido(datos);
+      var urlWA      = "https://wa.me/" + WHATSAPP_NUMBER +
+                       "?text=" + encodeURIComponent(mensajeWA);
+
+      // Esperar Sheet y luego abrir WhatsApp + mostrar éxito
+      promesaSheet.then(function() {
+        // Limpiar carrito
+        localStorage.removeItem("mm_carrito");
+
+        // Abrir WhatsApp
+        window.open(urlWA, "_blank");
+
+        // Mostrar éxito
+        document.getElementById("estadoEnviando").style.display = "none";
+        document.getElementById("form-wrapper").style.display = "none";
+        document.getElementById("form-success").classList.add("visible");
+
+      }).catch(function(err) {
+        document.getElementById("estadoEnviando").style.display = "none";
+        document.getElementById("estadoError").style.display = "flex";
+        document.getElementById("estadoErrorMsg").textContent =
+          "Error al registrar el pedido. Intenta de nuevo.";
+        document.getElementById("btn-confirmar").disabled = false;
+        console.error("Error Sheet:", err);
+      });
+    }
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    document.addEventListener("DOMContentLoaded", renderCarrito);
+  </script>
+
+</body>
+</html>

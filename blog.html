@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog - MenuMaster</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Recetas, tips culinarios y novedades gastronómicas. Artículos y consejos de cocina por MenuMaster.">
+  <meta property="og:title" content="Blog - MenuMaster">
+  <meta property="og:description" content="Recetas, tendencias y tips culinarios de nuestra cocina.">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/blog.css">
+</head>
+<body>
+
+  <!-- HEADER cargado dinámicamente desde modules/header.html -->
+  <div id="header-container"></div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="blog-container">
+    <div class="container">
+      <h1 class="blog-title">Recetas, Tips y Novedades Gastronómicas</h1>
+    </div>
+
+    <!-- INDICADOR DE CARGA -->
+    <div id="loadingBlogs" class="loading-box" role="status" aria-live="polite">
+      <h2>Cargando artículos…</h2>
+    </div>
+
+    <!-- TABLA DE ARTÍCULOS -->
+    <div class="container">
+      <table id="blogTable">
+        <thead>
+          <tr>
+            <th>Artículo</th>
+            <th>Fecha</th>
+            <th>Resumen</th>
+            <th>Leer más</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- FOOTER cargado dinámicamente desde modules/footer.html -->
+  <div id="footer-container"></div>
+
+  <!--
+    SCRIPTS — Orden requerido:
+    1. header-loader → inyecta HTML del header
+    2. header.js     → enlace activo
+    3. footer-loader → inyecta HTML del footer
+    4. menu-mobile   → menú responsive
+    5. config.js     → endpoint centralizado
+    6. blog.js       → carga y renderiza artículos
+  -->
+  <script src="js/header-loader.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer-loader.js"></script>
+  <script src="js/menu-mobile.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/blog.js"></script>
+</body>
+</html>

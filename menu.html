@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menú - MenuMaster</title>
+  <meta name="description" content="Explora nuestra carta. Platos caseros colombianos por categoría.">
+  <meta property="og:title" content="Menú - MenuMaster">
+  <meta property="og:description" content="Comida casera colombiana lista para ti.">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/menu-carta.css">
+</head>
+<body>
+
+  <div id="header-container"></div>
+
+  <!-- SUBNAV STICKY — categorías dinámicas -->
+  <nav class="carta-subnav" id="cartaSubnav" aria-label="Categorías del menú">
+    <div class="carta-subnav-inner">
+      <span class="subnav-pill active" data-categoria="todos">Todos</span>
+      <!-- Las demás categorías se inyectan desde menu.js -->
+    </div>
+  </nav>
+
+  <!-- HERO CARTA -->
+  <div class="carta-hero">
+    <div class="carta-hero-texto">
+      <p class="carta-subtitulo">Nuestra</p>
+      <h1 class="carta-titulo">Carta</h1>
+      <p class="carta-descripcion">Selecciona un plato para verlo en detalle<br>y agregarlo a tu pedido.</p>
+    </div>
+    <div class="carta-hero-linea"></div>
+  </div>
+
+  <!-- INDICADOR DE CARGA -->
+  <div id="cartaCargando" class="carta-cargando" role="status" aria-live="polite">
+    <div class="carta-spinner"></div>
+    <p>Cargando carta…</p>
+  </div>
+
+  <!-- INDICADOR DEL PEDIDO FLOTANTE -->
+  <div class="pedido-flotante" id="pedidoFlotante" style="display:none;">
+    <span class="pedido-flotante-icono">🛒</span>
+    <span class="pedido-flotante-texto">
+      <span id="pedidoContador">0</span> plato(s) en tu pedido
+    </span>
+    <a href="reservas.html" class="pedido-flotante-btn">Ver pedido →</a>
+  </div>
+
+  <!-- CONTENIDO CARTA — secciones por categoría -->
+  <main class="carta-contenido" id="cartaContenido" aria-label="Carta del restaurante">
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="js/header-loader.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer-loader.js"></script>
+  <script src="js/menu-mobile.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+/* =======================================
+   MENU-CARTA.CSS — Carta de Restaurante
+   MenuMaster v2 · Estilo editorial gastronómico
+   Usar con: styles.css (variables globales)
+   ======================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap');
+
+/* ── Subnav categorías ── */
+.carta-subnav {
+  position: sticky;
+  top: var(--header-height);
+  z-index: var(--z-subnav);
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.carta-subnav-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carta-subnav-inner::-webkit-scrollbar { display: none; }
+
+.subnav-pill {
+  flex-shrink: 0;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border: 1.5px solid var(--color-border);
+  color: var(--color-gray-dark);
+  background: transparent;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.subnav-pill:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.subnav-pill.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* ── Hero carta ── */
+.carta-hero {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px var(--spacing-md) 32px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.carta-hero-texto {
+  flex-shrink: 0;
+}
+
+.carta-subtitulo {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.carta-titulo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  line-height: 1;
+  margin: 0 0 12px;
+}
+
+.carta-descripcion {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: var(--color-gray);
+  line-height: 1.6;
+}
+
+.carta-hero-linea {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--color-border), transparent);
+}
+
+/* ── Cargando ── */
+.carta-cargando {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 16px;
+  color: var(--color-gray);
+  font-family: 'Lato', sans-serif;
+}
+
+.carta-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-border-light);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Contenido carta ── */
+.carta-contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md) 80px;
+}
+
+/* ── Sección / categoría ── */
+.carta-seccion {
+  margin-bottom: 56px;
+  animation: fadeUp 0.4s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.carta-seccion-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.carta-seccion-linea {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.carta-seccion-titulo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+
+/* ── Lista de platos ── */
+.carta-platos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Item de plato ── */
+.carta-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--color-border-light);
+  animation: fadeUp 0.35s ease both;
+  transition: background 0.2s;
+}
+
+.carta-item:first-child {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.carta-item:hover {
+  background: var(--color-primary-light);
+  margin: 0 -16px;
+  padding: 20px 16px;
+  border-radius: var(--border-radius-sm);
+  border-color: transparent;
+}
+
+.carta-item--destacado {
+  position: relative;
+}
+
+/* ── Info del plato ── */
+.carta-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.carta-badge {
+  display: inline-block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-light);
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 2px 10px;
+  margin-bottom: 6px;
+}
+
+.carta-item-nombre {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.carta-item-nombre a {
+  color: var(--color-dark);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.carta-item-nombre a:hover {
+  color: var(--color-primary);
+}
+
+.carta-item-desc {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.88rem;
+  color: var(--color-gray);
+  line-height: 1.5;
+  margin: 0 0 12px;
+  font-style: italic;
+}
+
+.carta-item-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.carta-item-precio {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.3px;
+}
+
+.carta-item-acciones {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carta-btn-ver {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-gray-dark);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1.5px solid var(--color-border);
+  border-radius: 20px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.carta-btn-ver:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.carta-btn-agregar {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-white);
+  background: var(--color-primary);
+  border: none;
+  border-radius: 20px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.carta-btn-agregar:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+.carta-btn-agregar.agregado {
+  background: var(--color-olive);
+}
+
+/* ── Foto del plato ── */
+.carta-item-foto-link {
+  flex-shrink: 0;
+  display: block;
+  text-decoration: none;
+}
+
+.carta-item-foto {
+  width: 100px;
+  height: 80px;
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  background: var(--color-gray-light);
+  flex-shrink: 0;
+}
+
+.carta-item-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.carta-item-foto-link:hover .carta-item-foto img {
+  transform: scale(1.06);
+}
+
+/* ── Flotante carrito ── */
+.pedido-flotante {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--color-dark);
+  color: var(--color-white);
+  border-radius: 40px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+  z-index: 9000;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.pedido-flotante-icono { font-size: 1.2rem; }
+
+.pedido-flotante-texto {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.pedido-flotante-btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.pedido-flotante-btn:hover { color: #f0c070; }
+
+/* ── Feedback toast ── */
+.carta-feedback {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  background: var(--color-olive);
+  color: var(--color-white);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 8px;
+  z-index: 9001;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.25s ease;
+  pointer-events: none;
+  max-width: 260px;
+}
+
+.carta-feedback.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Estados vacío / error ── */
+.carta-vacia,
+.carta-error {
+  text-align: center;
+  padding: 80px 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  color: var(--color-gray);
+}
+
+.carta-error { color: #c0392b; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .carta-titulo { font-size: 2.5rem; }
+  .carta-hero { padding: 40px var(--spacing-md) 24px; gap: 20px; }
+  .carta-hero-linea { display: none; }
+
+  .carta-item { gap: 16px; }
+  .carta-item-foto { width: 80px; height: 64px; }
+
+  .carta-item-pie { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .carta-item-acciones { width: 100%; justify-content: flex-start; }
+
+  .pedido-flotante { bottom: 16px; right: 16px; left: 16px; border-radius: 12px; }
+  .carta-feedback  { right: 16px; left: 16px; max-width: none; bottom: 90px; }
+}
+
+@media (max-width: 480px) {
+  .carta-titulo { font-size: 2rem; }
+  .carta-seccion-titulo { font-size: 1.3rem; }
+  .carta-item-foto { display: none; }
+  .carta-btn-ver { display: none; }
+  .carta-btn-agregar { width: 100%; text-align: center; border-radius: 8px; padding: 10px; }
+}

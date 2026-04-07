@@ -1,0 +1,63 @@
+/* =======================================
+   MÓDULO MENÚ — ADICIONES
+   Añadir al final de styles.css
+   MenuMaster v2 · Sincronizado con JSON real
+   ======================================= */
+
+/* ── Tag de categoría dentro de la card ── */
+.tag-categoria {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+/* ── Card destacada: borde dorado más grueso ── */
+.prop-card.card-destacado {
+  border-top: 4px solid var(--color-primary);
+  box-shadow: var(--shadow-lg), 0 0 0 2px var(--color-primary);
+}
+
+/* ── Badge "Destacado" sobre la imagen ── */
+.prop-img {
+  position: relative; /* necesario para el badge */
+}
+
+.badge-destacado {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--color-primary);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 1;
+  box-shadow: var(--shadow-sm);
+  letter-spacing: 0.3px;
+}
+
+/* ── Subnav scroll horizontal en mobile ── */
+@media (max-width: 768px) {
+  .property-subnav .container {
+    gap: var(--spacing-sm);
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .property-subnav .container::-webkit-scrollbar { display: none; }
+
+  .subnav-group {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+}
