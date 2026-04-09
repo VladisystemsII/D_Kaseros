@@ -1,33 +1,54 @@
-// articulo.js — Lógica de carga del detalle de artículo de Portal33
+// articulo.js — Lógica de carga del detalle de artículo de MenuMaster
 // Dependencia: config.js debe cargarse antes que este script.
 // Dependencia: marked.js debe cargarse antes que este script.
 // Dependencia: DOM debe tener #loadingArticulo y #articleContainer.
 
-document.addEventListener("DOMContentLoaded", function () {
+// Extraer ID de Google Drive
+function extraerFileId(url) {
+  if (!url || url.trim() === '') return null;
+  url = url.trim();
+  let m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  m = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  m = url.match(/open\?id=([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  m = url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+  if (m) return m[1];
+  return null;
+}
 
+// Normalizar URL de foto — igual que menu.js
+function normalizarFoto(url) {
+  if (!url || url.trim() === '') return null;
+  const fileId = extraerFileId(url);
+  if (fileId) return `https://drive.google.com/thumbnail?id=${fileId}&sz=w800`;
+  return url;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
   const loading     = document.getElementById("loadingArticulo");
   const containerEl = document.getElementById("articleContainer");
   const titleEl     = document.getElementById("articleTitle");
   const dateEl      = document.getElementById("articleDate");
   const resumenEl   = document.getElementById("articleResumen");
   const contentEl   = document.getElementById("articleContent");
+  const fotoWrap    = document.getElementById("articleFotoWrap");
+  const fotoImg     = document.getElementById("articleFoto");
 
-  // Configuración de marked.js — seguro y limpio
   marked.setOptions({
-    breaks: true,        // saltos de línea simples = <br>
-    gfm: true,           // GitHub Flavored Markdown — negrillas, listas, etc.
-    headerIds: false,    // no genera IDs en encabezados
-    mangle: false        // no altera el texto
+    breaks: true,
+    gfm: true,
+    headerIds: false,
+    mangle: false
   });
 
-  // Obtener código desde parámetro URL
   const params = new URLSearchParams(window.location.search);
   const codigo = params.get("codigo");
 
-  // Sin código en URL → mostrar error inmediato
   if (!codigo) {
     loading.style.display = "none";
-    titleEl.textContent   = "Artículo no encontrado";
+    titleEl.textContent = "Artículo no encontrado";
     containerEl.style.display = "block";
     return;
   }
@@ -40,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return response.json();
     })
     .then(function (data) {
-
       const post = data.find(function (p) {
         return (
           p["CÓDIGO"]?.trim() === codigo.trim() &&
@@ -54,20 +74,29 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Título — con o sin tilde
+      // Foto — mostrar si existe
+      const fotoUrl = normalizarFoto(post["Foto"] || "");
+      if (fotoUrl) {
+        fotoImg.src = fotoUrl;
+        fotoImg.alt = post["Título"] || post["Titulo"] || "";
+        fotoImg.onerror = function () { fotoWrap.style.display = "none"; };
+        fotoWrap.style.display = "block";
+      }
+
+      // Título
       titleEl.textContent = post["Título"] || post["Titulo"] || "";
 
-      // Fecha formateada
+      // Fecha
       dateEl.textContent = new Date(post["Fecha"]).toLocaleDateString("es-CO", {
         year: "numeric",
         month: "long",
         day: "numeric"
       });
 
-      // Resumen — texto plano debajo de la fecha
+      // Resumen
       resumenEl.textContent = post["Resumen"] || "";
 
-      // Contenido — Markdown → HTML
+      // Contenido Markdown → HTML
       const contenido = post["Contenido"] || post["contenido"] || "";
       contentEl.innerHTML = contenido.trim()
         ? marked.parse(contenido)

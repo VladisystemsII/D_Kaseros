@@ -12,41 +12,26 @@
   <link rel="stylesheet" href="css/articulo.css">
 </head>
 <body>
-
-  <!-- HEADER cargado dinámicamente desde modules/header.html -->
   <div id="header-container"></div>
-
-  <!-- INDICADOR DE CARGA -->
   <div id="loadingArticulo" class="loading-box" role="status" aria-live="polite"
        style="display:none;">
     <h2>Cargando artículo…</h2>
   </div>
-
-  <!-- CONTENIDO DEL ARTÍCULO -->
   <main>
     <div class="article-container" id="articleContainer">
-      <h1 class="article-title"  id="articleTitle"></h1>
-      <p  class="article-date"   id="articleDate"></p>
+      <!-- FOTO DEL ARTÍCULO -->
+      <div class="article-foto-wrap" id="articleFotoWrap" style="display:none;">
+        <img class="article-foto" id="articleFoto" src="" alt="">
+      </div>
+      <h1 class="article-title"   id="articleTitle"></h1>
+      <p  class="article-date"    id="articleDate"></p>
       <p  class="article-resumen" id="articleResumen"></p>
       <hr class="article-divider">
       <div class="article-content" id="articleContent"></div>
       <a href="blog.html" class="btn-volver">← Volver al Blog</a>
     </div>
   </main>
-
-  <!-- FOOTER cargado dinámicamente desde modules/footer.html -->
   <div id="footer-container"></div>
-
-  <!--
-    SCRIPTS — Orden requerido:
-    1. header-loader → inyecta HTML del header
-    2. header.js     → enlace activo
-    3. footer-loader → inyecta HTML del footer
-    4. menu-mobile   → menú responsive
-    5. config.js     → endpoint centralizado
-    6. marked.js     → renderiza Markdown
-    7. articulo.js   → carga y renderiza el artículo
-  -->
   <script src="js/header-loader.js"></script>
   <script src="js/header.js"></script>
   <script src="js/footer-loader.js"></script>

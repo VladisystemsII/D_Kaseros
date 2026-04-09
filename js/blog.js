@@ -9,20 +9,40 @@ function sanitize(str) {
   return div.innerHTML;
 }
 
+// Extraer ID de Google Drive (copiado de menu.js)
+function extraerFileId(url) {
+  if (!url || url.trim() === '') return null;
+  url = url.trim();
+  let m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  m = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  m = url.match(/open\?id=([a-zA-Z0-9_-]+)/);
+  if (m) return m[1];
+  m = url.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+  if (m) return m[1];
+  return null;
+}
+
+// Normalizar URL de foto (mismo método que menu.js — thumbnail funciona)
+function normalizarFoto(url) {
+  if (!url || url.trim() === '') return null;
+  const fileId = extraerFileId(url);
+  if (fileId) return `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
+  return url;
+}
+
 async function loadBlogs() {
   const loading   = document.getElementById("loadingBlogs");
   const tableBody = document.querySelector("#blogTable tbody");
 
   try {
     loading.style.display = "block";
-
     const response = await fetch(MENUMASTER_CONFIG.BLOG_ENDPOINT);
     if (!response.ok) throw new Error(`HTTP error ${response.status}`);
-
     const data = await response.json();
     tableBody.innerHTML = "";
 
-    // Filtrar solo artículos activos
     const activos = data.filter(
       post => String(post["Activo (si/no)"]).toLowerCase() === "si"
     );
@@ -39,8 +59,9 @@ async function loadBlogs() {
     }
 
     activos.forEach(post => {
-      const codigo = post["CÓDIGO"] || "";
-      const titulo = post["Título"] || post["Titulo"] || "Sin título";
+      const codigo  = post["CÓDIGO"] || "";
+      const titulo  = post["Título"] || post["Titulo"] || "Sin título";
+      const fotoUrl = normalizarFoto(post["Foto"] || "");
 
       const fechaFormateada = new Date(post["Fecha"]).toLocaleDateString("es-CO", {
         year: "numeric",
@@ -48,12 +69,30 @@ async function loadBlogs() {
         day: "numeric"
       });
 
+      const fotoHtml = fotoUrl
+        ? `<img
+             src="${sanitize(fotoUrl)}"
+             alt="${sanitize(titulo)}"
+             loading="lazy"
+             onerror="this.style.display='none'"
+             style="
+               width: 100%;
+               height: 110px;
+               object-fit: cover;
+               display: block;
+               border-radius: 6px;
+               margin-bottom: 8px;
+             "
+           />`
+        : "";
+
       const row = document.createElement("tr");
       row.innerHTML = `
-        <td data-label="Título">
+        <td data-label="Artículo">
           <a href="articulo.html?codigo=${encodeURIComponent(codigo)}"
-             style="color:inherit; text-decoration:none; font-weight:700;">
-            ${sanitize(titulo)}
+             style="color:inherit; text-decoration:none;">
+            ${fotoHtml}
+            <span style="font-weight:700; font-size:1rem;">${sanitize(titulo)}</span>
           </a>
         </td>
         <td data-label="Fecha">${sanitize(fechaFormateada)}</td>
@@ -65,7 +104,6 @@ async function loadBlogs() {
           </a>
         </td>
       `;
-
       tableBody.appendChild(row);
     });
 

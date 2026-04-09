@@ -11,7 +11,7 @@ const MENUMASTER_CONFIG = {
   PEDIDOS_ENDPOINT: "https://script.google.com/macros/s/AKfycbz9Vt7OvURVRs11SJyJdfKHQ81h2Toy8CqFQ0_qxdFBNBU9ovYGFe4eA-bObUtGBro/exec",
 
   // Blog
-  BLOG_ENDPOINT: "https://script.google.com/macros/s/AKfycbxZy-gC3bVtbVdtwL9ZLnZQIM1bxh_8sTUPn5-oq4I5pX3FtSC6UkWTq7J_SuPtU2RdFw/exec",
+  BLOG_ENDPOINT: "https://script.google.com/macros/s/AKfycbwFQePSqC94ZZXc-60HsusUKNWUuIqEsPOmtpPoZHlrFKzXv0d7ckE5mkl7_LjP_suwCg/exec",
 
   // WhatsApp del restaurante (número de cocina/encargado)
   WHATSAPP_NUMBER: "573058134079"
