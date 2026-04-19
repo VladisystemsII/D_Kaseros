@@ -54,7 +54,7 @@
 .subnav-pill.active {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  color: var(--color-white);
+  color: #111111;
 }
 
 /* ── Hero carta ── */
@@ -190,7 +190,7 @@
 }
 
 .carta-item:hover {
-  background: var(--color-primary-light);
+  background: #FEFDE6;
   margin: 0 -16px;
   padding: 20px 16px;
   border-radius: var(--border-radius-sm);
@@ -293,7 +293,7 @@
   font-family: 'Lato', sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--color-white);
+  color: #111111;
   background: var(--color-primary);
   border: none;
   border-radius: 20px;
@@ -380,7 +380,7 @@
   transition: color 0.2s;
 }
 
-.pedido-flotante-btn:hover { color: #f0c070; }
+.pedido-flotante-btn:hover { color: #FAEE06; }
 
 /* ── Feedback toast ── */
 .carta-feedback {

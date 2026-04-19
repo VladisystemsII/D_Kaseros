@@ -5,23 +5,23 @@
 
 /* ===== VARIABLES CSS PARA CONSISTENCIA ===== */
 :root {
-  /* ── Paleta oficial MasterMenu · Culinary Identity ── */
-  --color-primary: #B8813A;        /* dorado cobre — acento principal (logo) */
-  --color-primary-dark: #956628;   /* dorado oscuro — hover */
-  --color-primary-light: #EDE8D8;  /* crema — fondos suaves */
+  /* ── Paleta demo Kseros · Blanco puro + Amarillo dorado ── */
+  --color-primary: #FAEE06;        /* amarillo dorado — acento principal */
+  --color-primary-dark: #E0D000;   /* amarillo oscuro — hover */
+  --color-primary-light: #FEFDE6;  /* amarillo muy suave — fondos de card */
 
-  --color-black: #1A0F06;
-  --color-dark: #3D1F0D;           /* café oscuro — textos fuertes */
-  --color-darker: #2A1508;         /* café muy oscuro — footer fondo */
-  --color-gray-light: #EDE8D8;     /* crema cálida — fondo general */
-  --color-gray: #7A6A58;           /* gris cálido */
-  --color-gray-dark: #5C4A38;      /* gris oscuro cálido */
-  --color-border: #D4C9B8;         /* borde crema */
-  --color-border-light: #E8E0D0;   /* borde suave */
-  --color-white: #FDFAF5;          /* blanco cálido */
-  --color-text: #3D1F0D;           /* texto principal — café oscuro */
-  --color-text-light: #C4B89A;     /* texto claro */
-  --color-text-footer: #A89880;    /* texto footer */
+  --color-black: #111111;
+  --color-dark: #1A1A1A;           /* casi negro — textos fuertes */
+  --color-darker: #111111;         /* negro — footer fondo */
+  --color-gray-light: #FFFFFF;     /* blanco puro — fondo general */
+  --color-gray: #777777;           /* gris neutro */
+  --color-gray-dark: #444444;      /* gris oscuro */
+  --color-border: #E8E8E8;         /* borde muy suave */
+  --color-border-light: #F0F0F0;   /* borde mínimo */
+  --color-white: #FFFFFF;          /* blanco puro */
+  --color-text: #1A1A1A;           /* texto principal — casi negro */
+  --color-text-light: #999999;     /* texto claro */
+  --color-text-footer: #AAAAAA;    /* texto footer */
   --color-olive: #7A8C5E;          /* verde oliva complementario */
   --color-olive-dark: #5C7057;     /* verde oliva oscuro */
   --color-earth: #A8845A;          /* tierra cálido */
@@ -60,7 +60,7 @@ html {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: var(--color-gray-light);
+  background: #FFFFFF;
   color: var(--color-text);
   line-height: 1.6;
   padding-top: var(--header-height);
@@ -97,10 +97,10 @@ header {
   left: 0;
   width: 100%;
   height: var(--header-height);
-  background: var(--color-white);
-  border-bottom: 3px solid var(--color-primary); /* línea naranja — identidad MenuMaster */
+  background: #FFFFFF;
+  border-bottom: 3px solid var(--color-primary); /* línea amarilla — identidad Kseros */
   z-index: var(--z-header);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
 }
 
 .nav {
@@ -166,7 +166,7 @@ header {
 #publicar a {
   display: inline-block;
   background-color: var(--color-primary);
-  color: #fff;
+  color: #111111;
   padding: 14px 28px;
   text-decoration: none;
   font-weight: bold;
@@ -251,20 +251,20 @@ header {
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--spacing-xl);
-  justify-items: center;
-  text-align: center;
+  align-items: center;
+  text-align: left;
 }
 
-.hero-text { max-width: 720px; }
+.hero-text { max-width: 520px; }
 
 .hero h1 {
-  font-size: 2.1rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  line-height: 1.25;
-  margin-bottom: 14px;
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.08);
+  line-height: 1.2;
+  margin-bottom: 18px;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.06);
 }
 
 .hero-subtitle {
@@ -273,6 +273,7 @@ header {
   letter-spacing: 0.4px;
 }
 
+/* Imagen horizontal — legacy */
 .hero-ui {
   width: 100%;
   max-width: 880px;
@@ -283,9 +284,21 @@ header {
   overflow: hidden;
 }
 
-.hero-ui:hover {
-  box-shadow: var(--shadow-xl), 0 5px 15px rgba(0,0,0,0.15);
-  transform: translateY(-5px);
+/* Imagen vertical — Kseros */
+.hero-ui--vertical {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 16;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 8px 32px rgba(245,197,24,0.15), 0 4px 16px rgba(0,0,0,0.10);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  overflow: hidden;
+  justify-self: center;
+}
+
+.hero-ui--vertical:hover {
+  box-shadow: 0 14px 40px rgba(250,238,6,0.22), 0 6px 20px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
 }
 
 .hero-ui img {
@@ -295,6 +308,31 @@ header {
   display: block;
 }
 
+.hero-ui--vertical img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  object-position: center bottom;
+}
+
+@media (max-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 0.5fr 1fr;
+    text-align: left;
+    align-items: center;
+  }
+  .hero h1 { font-size: 1rem !important; }
+  .hero-subtitle { font-size: 0.7rem !important; }
+  .hero-ui--vertical {        /* ← faltaba esta línea */
+    max-width: 300px;
+    height: 300px;
+    aspect-ratio: unset;
+  }
+  .hero-ui--vertical img {
+    object-position: center center;
+  }
+}
 /* =======================================
    SECCIONES GENERALES
    ======================================= */
@@ -352,13 +390,13 @@ section h2 {
   border: 1px solid var(--color-border-light);
   border-top: 4px solid var(--color-primary);
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg), var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #forma-de-trabajar .card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-xl);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(245, 197, 24, 0.22), 0 4px 12px rgba(0,0,0,0.08);
 }
 
 #forma-de-trabajar .card::before {
@@ -388,36 +426,35 @@ section h2 {
    CTA
    ======================================= */
 .cta {
-  background: var(--color-dark);
-  color: var(--color-white);
+  background: #111111;
+  color: #FFFFFF;
   text-align: center;
   padding: 70px var(--spacing-md);
-  box-shadow: var(--shadow-xl), 0 5px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.18);
   margin: var(--spacing-xl) 0;
 }
 
 .cta h2 {
   margin-bottom: var(--spacing-md);
-  text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-  color: var(--color-white);
+  color: #FFFFFF;
 }
 
 .cta button {
   padding: var(--spacing-sm) 22px;
   border: none;
   background: var(--color-primary);
-  color: var(--color-white);
+  color: #111111;
   font-weight: bold;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(200,68,10,0.3);
+  box-shadow: 0 4px 15px rgba(245,197,24,0.35);
   transition: all 0.3s ease;
   font-size: 1rem;
 }
 
 .cta button:hover {
   background: var(--color-primary-dark);
-  box-shadow: 0 6px 20px rgba(200,68,10,0.5);
+  box-shadow: 0 6px 20px rgba(245,197,24,0.5);
   transform: scale(1.05);
 }
 
@@ -501,7 +538,7 @@ footer h4 {
   overflow: hidden;
   border: 1px solid var(--color-border-light);
   border-top: 4px solid var(--color-primary);
-  box-shadow: var(--shadow-lg), var(--shadow-sm);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.05);
   display: flex;
   flex-direction: column;
   max-width: 350px;
@@ -511,8 +548,8 @@ footer h4 {
 }
 
 .prop-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-xl);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(245, 197, 24, 0.22), 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .prop-img {
@@ -562,7 +599,7 @@ footer h4 {
   margin-top: var(--spacing-sm);
   padding: 10px;
   background: var(--color-primary);
-  color: var(--color-white);
+  color: #111111;
   border: none;
   cursor: pointer;
   border-radius: var(--border-radius-sm);
@@ -674,7 +711,7 @@ h1.blog-title {
   bottom: 20px;
   right: 20px;
   background-color: var(--color-primary);
-  color: #fff;
+  color: #111111;
   padding: 12px 20px;
   border-radius: 8px;
   text-decoration: none;
@@ -817,7 +854,7 @@ h1.blog-title {
   display: inline-block;
   padding: 6px 14px;
   background: var(--color-primary);
-  color: var(--color-white);
+  color: #111111;
   border-radius: var(--border-radius-sm);
   font-size: 0.85rem;
   font-weight: 600;
@@ -1099,7 +1136,7 @@ button:focus-visible {
   margin-top: 25px;
   padding: 12px 26px;
   background: var(--color-primary);
-  color: var(--color-white);
+  color: #111111;
   text-decoration: none;
   font-size: 14px;
   border-radius: 6px;

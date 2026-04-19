@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <div class="container nav">
         <div class="logo">
           <a href="index.html">
-            <img src="img/logo-menumaster.png" alt="MenuMaster"
+            <img src="https://res.cloudinary.com/diifewvvs/image/upload/f_auto,q_auto/Logo_xfleso" alt="MenuMaster"
                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
             <span style="display:none; font-size:1.4rem; font-weight:900; color:#B8813A;">🍽️ MenuMaster</span>
           </a>
